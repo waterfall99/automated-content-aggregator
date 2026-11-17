@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def send_notification(articles):
-    
     WEBHOOK = os.getenv("DISCORD_WEBHOOK_URL")
     if WEBHOOK is None:
         return False
