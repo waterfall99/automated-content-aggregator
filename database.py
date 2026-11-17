@@ -1,4 +1,5 @@
 import sqlite3
+import logging
 
 def init_db():
     conn = sqlite3.connect("articles.db")
@@ -37,6 +38,6 @@ def mark_as_sent(article_ids):
 if __name__ == "__main__":
     init_db()
     save_articles([{"title": "Test", "link": "https://example.com", "source": "Test"}, {"title": "Test", "link": "https://example.com", "source": "Test"}])
-    print(get_unsent_articles())
+    logging.info(get_unsent_articles())
     mark_as_sent([1])
-    print(get_unsent_articles())
+    logging.info(get_unsent_articles())
