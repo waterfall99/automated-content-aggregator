@@ -1,11 +1,14 @@
-import os
 import logging
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_FILE = os.path.join(BASE_DIR, 'aggregator.log')
+import os
+
+log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "aggregator.log")
+
 logging.basicConfig(
-    filename=LOG_FILE,
+    filename=log_path,
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    force=True
 )
 from fetcher import fetch_articles
 from database import init_db, save_articles, get_unsent_articles, mark_as_sent
@@ -18,6 +21,7 @@ logging.basicConfig(
 )
 
 def main():
+    logging.info("--- Aggregator script started ---")
     try:
         init_db()
         fetched_articles = fetch_articles()
@@ -29,9 +33,9 @@ def main():
                 for row in new_rows:
                     all_rows.append(row[0])
                 mark_as_sent(all_rows)
-            logging.info("Aggregator run completed successfully.")
     except Exception as e:
         logging.error(f"Application crashed: {e}")
+    logging.info("Aggregator run completed successfully.")
 if __name__ == "__main__":
     main()
         

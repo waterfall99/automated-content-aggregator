@@ -4,3 +4,4 @@
 __pycache__/
 *.db
 aggregator.log
+task_debug.log
