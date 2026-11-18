@@ -9,10 +9,14 @@ def fetch_articles():
             feed = feedparser.parse(url)
             for entry in feed.entries:
                 title = entry.get("title", "")
-                for keyword in KEYWORDS:
-                    if keyword.lower() in title.lower():
-                        matched_articles.append({"title": title, "link": entry.get("link", ""), "source": feed.feed.get("title", url)})
+                for category_terms in KEYWORDS:
+                    for keyword in category_terms:
+                        if keyword.lower() in title.lower():
+                            matched_articles.append({"title": title, "link": entry.get("link", ""), "source": feed.feed.get("title", url)})
                         break
+                    else:
+                        continue
+                    break
         except Exception as e:
             logging.error(f"Failed to fetch feed {url}: {e}")
     return matched_articles
