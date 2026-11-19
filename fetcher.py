@@ -1,6 +1,7 @@
 import logging
 from config import FEED_URLS, KEYWORDS
 import feedparser
+# Collects articles from the urls and returns a list of all the matched lists
 def fetch_articles():
     matched_articles = []
     for url in FEED_URLS:
